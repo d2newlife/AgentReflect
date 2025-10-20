@@ -1,0 +1,7 @@
+langgraph
+typing_extensions
+langchain_google_genai
+python-dotenv
+black
+isort
+langchain
