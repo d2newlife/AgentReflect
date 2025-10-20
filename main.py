@@ -26,7 +26,7 @@ def reflect_node(state: GraphState) -> List[BaseMessage]:
     return {"messages": [HumanMessage(content=ref_response.content)]}
 
 def should_continue(state: GraphState) -> str:
-   if len(state["messages"]) >= 5:
+   if len(state["messages"]) >= 4:
        return END
    return REFLECT
 
