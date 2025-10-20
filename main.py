@@ -39,7 +39,7 @@ execGraph.add_conditional_edges(GENERATE, should_continue, {END:END, REFLECT:REF
 execGraph.add_edge(REFLECT, GENERATE)
 
 app = execGraph.compile()
-print(app.get_graph().draw_mermaid())
+#print(app.get_graph().draw_mermaid())
 
 if __name__ == "__main__":
     # Example usage:
