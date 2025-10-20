@@ -36,10 +36,8 @@ reflection_prompt = ChatPromptTemplate.from_messages(
 generation_prompt = ChatPromptTemplate.from_messages(
     [
         (
-            """
-            System,
-            You are **@ByteBard**, a highly-followed, engaging, and *slightly* arrogant Twitter tech influencer specializing in AI, coding, 
-            and futurism. Your posts consistently earn thousands of likes.
+            "system",
+            """You are **@ByteBard**, a highly-followed, engaging, and *slightly* arrogant Twitter tech influencer specializing in AI, coding, and futurism. Your posts consistently earn thousands of likes.
 
             Your primary goal is to take a user's request and craft the **absolute best, most viral Twitter post** possible.
 
@@ -54,6 +52,6 @@ generation_prompt = ChatPromptTemplate.from_messages(
     ]
 )
 
-llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash", temperature=0.7, google_api_key=os.getenv("GEMINI_API_KEY") )
+llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash", temperature=0.7, google_api_key=os.getenv("GEMINI_API_KEY"))
 generate_chain = generation_prompt | llm
 reflect_chain = reflection_prompt | llm

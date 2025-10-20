@@ -17,26 +17,32 @@ class GraphState(TypedDict):
     messages: Annotated[List[BaseMessage], operator.add]
 
 
-def generation_node(state: List[BaseMessage]) -> List[BaseMessage]:
-    gen_response = generate_chain.invoke(messages=state["messages"])
+def generation_node(state: GraphState) -> List[BaseMessage]:
+    gen_response = generate_chain.invoke({"messages": state["messages"]})
     return {"messages": [gen_response]}
 
-def reflect_node(state: List[BaseMessage]) -> List[BaseMessage]:
-    ref_response = reflect_chain.invoke(messages=state["messages"])
+def reflect_node(state: GraphState) -> List[BaseMessage]:
+    ref_response = reflect_chain.invoke({"messages": state["messages"]})
     return {"messages": [HumanMessage(content=ref_response.content)]}
+
+def should_continue(state: GraphState) -> str:
+   if len(state["messages"]) >= 5:
+       return END
+   return REFLECT
 
 
 execGraph = StateGraph(GraphState)
 execGraph.add_node(GENERATE, generation_node)
 execGraph.add_node(REFLECT, reflect_node)
 execGraph.set_entry_point(GENERATE)
-execGraph.add_edge(GENERATE, REFLECT)
+execGraph.add_conditional_edges(GENERATE, should_continue, {END:END, REFLECT:REFLECT})
 execGraph.add_edge(REFLECT, GENERATE)
 
 app = execGraph.compile()
+print(app.get_graph().draw_mermaid())
 
 if __name__ == "__main__":
-    print("This script is being run directly.")
     # Example usage:
-    # final_state = app.invoke({"messages": [HumanMessage(content="Write a tweet about the benefits of learning Python.")]})
-    # print(final_state["messages"][-1].content)
+    input = HumanMessage(content="Write a tweet about the benefits of learning Python.")
+    final_state = app.invoke({"messages": [input]})
+    print(final_state["messages"][-1].content)
