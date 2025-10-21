@@ -106,11 +106,13 @@ GEMINI_API_KEY=your_google_gemini_api_key_here
 
 5. **Configure your LangSmit key**
 Go to : https://smith.langchain.com/  and get your key
-
+```
 In the .env file in the root directory add the following:
+
 LANGCHAIN_TRACING_V2="true"
 LANGCHAIN_PROJECT="AgentReflect"
 LANGCHAIN_API_KEY="<YOUR KEY HERE>"
+```
 
 ## ▶️ Running Locally
 
