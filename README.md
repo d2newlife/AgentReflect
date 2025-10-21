@@ -50,6 +50,7 @@ This project addresses the challenge of **content optimization for social media 
 - **LangChain** - AI application framework and workflow orchestration
 - **LangGraph** - State graph management for complex AI workflows
 - **Google Gemini 2.5 Flash** - Advanced language model for content generation
+- **LangSmith** - AI model evaluation and feedback loop
 
 ### Development Tools
 - **python-dotenv** - Environment variable management
@@ -102,6 +103,14 @@ Create a `.env` file in the root directory:
 ```
 GEMINI_API_KEY=your_google_gemini_api_key_here
 ```
+
+5. **Configure your LangSmit key**
+Go to : https://smith.langchain.com/  and get your key
+
+In the .env file in the root directory add the following:
+LANGCHAIN_TRACING_V2="true"
+LANGCHAIN_PROJECT="AgentReflect"
+LANGCHAIN_API_KEY="<YOUR KEY HERE>"
 
 ## ▶️ Running Locally
 
