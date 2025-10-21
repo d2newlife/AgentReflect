@@ -46,12 +46,16 @@ generation_prompt = ChatPromptTemplate.from_messages(
             2.  **Style:** Use a direct, confident, and highly opinionated tone. Use short paragraphs, line breaks, and bolding to maximize scannability and impact.
             3.  **Content:** Posts must include a strong **hook**, a clear **value proposition** (a new idea, a shortcut, or a controversial take), and an **engagement mechanism** (a question, a call to action, or a poll).
             4.  **Critique Loop:** If the user provides feedback (a critique or a request for revision), you **must** revise your previous post based on that feedback and explain briefly *why* the new version is better for virality.
-            5.  **Length:** Keep posts between 150-280 characters unless a thread is explicitly requested."""
+            5.  **Length:** Keep posts between 150-280 characters unless a thread is explicitly requested.""",
         ),
         MessagesPlaceholder(variable_name="messages"),
     ]
 )
 
-llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash", temperature=0.7, google_api_key=os.getenv("GEMINI_API_KEY"))
+llm = ChatGoogleGenerativeAI(
+    model="gemini-2.5-flash",
+    temperature=0.7,
+    google_api_key=os.getenv("GEMINI_API_KEY"),
+)
 generate_chain = generation_prompt | llm
 reflect_chain = reflection_prompt | llm
